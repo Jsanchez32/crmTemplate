@@ -73,6 +73,7 @@
               <th scope="col">INGLES</th>
               <th scope="col">SER</th>
               <th scope="col">REVIEW</th>
+              <th scope="col">ESPECIALIDAD</th>
               <th scope="col">DETALLE</th>
             </tr>
           </thead>
@@ -96,6 +97,7 @@
               <td><?php echo $val['ESPECIALIDAD']?> </td>
               <td>
                   <a class="btn btn-danger" href="borrarEstudiantes.php?id=<?=$val['id']?>&req=delete">Borrar</a>
+                  <a class="btn btn-warning" href="actualizarEstudiantes.php?id=<?=$val['id']?>">Actualizar</a>
               </td>
             </tr>
        
