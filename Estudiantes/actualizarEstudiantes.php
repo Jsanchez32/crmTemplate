@@ -1,18 +1,16 @@
 <?php
 
-require_once("config.php");
-$data = new Config();
+require_once("camper.php");
+$data = new Estudiante();
 
 $id = $_GET['id'];
 $data->setID($id);
 
 $record = $data->selectOne();
-print_r($record);
 
 $val = $record[0];
 echo "<br>";
 echo "<br>";
-print_r($val);
 
 
 if(isset($_POST['editar'])){

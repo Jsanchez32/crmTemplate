@@ -8,9 +8,10 @@ ini_set("display_startup_errors", 1);
 error_reporting(E_ALL);
 
 
-    require_once("db.php");
+    require_once("../Config/db.php");
+    require_once("../Config/conectar.php");
 
-    class Config{
+    class Estudiante extends Conectar{
 
         private $id;
         private $nombres;
@@ -21,9 +22,8 @@ error_reporting(E_ALL);
         private $ser;
         private $review;
         private $especialidad;
-        protected $dbCnx;
 
-        public function __construct($id=0,$nombres="",$direccion="",$logros="",$ingles="",$skills="",$ser="",$review="",$especialidad=""){
+        public function __construct($id=0,$nombres="",$direccion="",$logros="",$ingles="",$skills="",$ser="",$review="",$especialidad="", $dbCnx=""){
 
             $this->id=$id;
             $this->nombres=$nombres;
@@ -34,7 +34,7 @@ error_reporting(E_ALL);
             $this->ser=$ser;
             $this->review=$review;
             $this->especialidad=$especialidad;
-            $this->dbCnx = new PDO(DB_TYPE.":host=".DB_HOST.";dbname=".DB_NAME, DB_USER, DB_PWD, [PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC] );
+            parent ::__construct($dbCnx);
         }
 
         public function setID($id){
