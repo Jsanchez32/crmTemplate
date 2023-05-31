@@ -1,6 +1,7 @@
 <?php
 
     require_once("../Config/conectar.php");
+    require_once("loginUser.php");
 
 
     class User extends Conectar{
@@ -10,7 +11,7 @@
         private $username;
         private $password;
 
-        public function __construct($id=0,$idCamper=0   ,$email="",$username="",$password="",$dbCnx=""){
+        public function __construct($id=0,$idCamper=0 ,$email="",$username="",$password="",$dbCnx=""){
             $this->id=$id;
             $this->idCamper=$idCamper;
             $this->email=$email;
@@ -59,12 +60,35 @@
             return $this->password;
         }
 
+        public function checkUser($email){
+            try {
+                $stm= $this->dbCnx->prepare("SELECT * FROM users WHERE email = '$email' ");
+                $stm->execute();
+                if($stm->fetchColumn()){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            } catch (Exception $e) {
+                $e->getMessage();
+            }
+        }
+
         public function insertData(){
             try {
                 $stm= $this->dbCnx->prepare("INSERT INTO users (idCamper,email,username,password) VALUES(?,?,?,?)" );
                 $stm->execute([$this->idCamper, $this->email, $this->username, md5($this->password)]);
-            } catch (Execute $e) {
-                e->getMessage();
+
+
+                $login = new LoginUser();
+
+                $login -> setEmail($_POST['email']);
+                $login -> setPassword($_POST['password']);
+
+                $succes = $login->login();
+            } catch (Exception $e) {
+                $e->getMessage();
             }
         }
     }
